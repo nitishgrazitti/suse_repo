@@ -22,7 +22,6 @@ public class Main {
 	static Set<String> secondLevelLinksToSet = new HashSet<String>();
 	static Set<String> firstLevelLinksToSet = new HashSet<String>();
 	static int m;
-	static int a;
 	static String totalLinksCount;
 	static int firstLevelEachIterationLinkCount;
 	static int secondLevelEachIterationLinkCount;
@@ -39,29 +38,29 @@ public class Main {
 	static Object[] firstLevelLinksToArray;
 
 	public static void main(String[] args) throws Exception {
-		openBrowser();
+//		openBrowser();
 //		getBlogPaginationCount();
 //		validateBlogLinks();
-		getFirstLevelMenuLinksToSet("Products", "product", "product");
-		navigateToSecondLevelLinks("Products", "product", "product");
-		getFirstLevelMenuLinksToSet("Solutions", "solution", "");
-		navigateToSecondLevelLinks("Solutions", "solution", "");
-		getFirstLevelMenuLinksToSet("Support", "support", "");
-		navigateToSecondLevelLinks("Support", "support", "");
-		getFirstLevelMenuLinksToSet("Partners", "partner", "partner");
-		navigateToSecondLevelLinks("Partners", "partner", "partner");
-		getFirstLevelMenuLinksToSet("Communities", "communities", "");
-		navigateToSecondLevelLinks("Communities", "communities", "");
-		getFirstLevelMenuLinksToSet("About", "about", "");
-		navigateToSecondLevelLinks("About", "about", "");
-		writeFirstLevelLinksToExcel();
-		writeSecondLevelLinksToExcel();
+//		getFirstLevelMenuLinksToSet("Products", "product", "product");
+//		navigateToSecondLevelLinks("Products", "product", "product");
+//		getFirstLevelMenuLinksToSet("Solutions", "solution", "");
+//		navigateToSecondLevelLinks("Solutions", "solution", "");
+//		getFirstLevelMenuLinksToSet("Support", "support", "");
+//		navigateToSecondLevelLinks("Support", "support", "");
+//		getFirstLevelMenuLinksToSet("Partners", "partner", "partner");
+//		navigateToSecondLevelLinks("Partners", "partner", "partner");
+//		getFirstLevelMenuLinksToSet("Communities", "communities", "");
+//		navigateToSecondLevelLinks("Communities", "communities", "");
+//		getFirstLevelMenuLinksToSet("About", "about", "");
+//		navigateToSecondLevelLinks("About", "about", "");
+//		writeFirstLevelLinksToExcel();
+//		writeSecondLevelLinksToExcel();
 		readDataFromExcel(0);
 		getStatusCodeOfUrls(0);
-		readDataFromExcel(1);
-		getStatusCodeOfUrls(1);
-		getExecutionTime();
-		closeBrowser();
+//		readDataFromExcel(1);
+//		getStatusCodeOfUrls(1);
+//		getExecutionTime();
+//		closeBrowser();
 	}
 
 	public static void getStatusCodeOfUrls(int sheetNum) throws Exception {
@@ -109,7 +108,6 @@ public class Main {
 		List<WebElement> totalFirstLevelLinks = driver.findElements(
 				By.xpath("//a[contains(@class,'" + classAttribute + "') and contains(@href,'" + hrefAttribute + "')]"));
 		firstLevelEachIterationLinkCount = totalFirstLevelLinks.size();
-		System.out.println(firstLevelEachIterationLinkCount);
 		for (int i = 1; i <= firstLevelEachIterationLinkCount; i++) {
 			firstLevelLinksToSet.add(driver.findElement(By.xpath("(//a[contains(@class,'" + classAttribute
 					+ "') and contains(@href,'" + hrefAttribute + "')])[position()=" + i + "]")).getAttribute("href"));
@@ -149,15 +147,11 @@ public class Main {
 		clickElement(driver.findElement(By.xpath("//a[text()='" + tabName + "']")), "");
 		String currentURL=driver.findElement(By.xpath("(//a[contains(@class,'" + classAttribute
 				+ "') and contains(@href,'" + hrefAttribute + "')])[position()=" + position + "]")).getAttribute("href");
-		System.out.println("current URL "+currentURL);
 		driver.navigate().to(currentURL);
 			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 			Thread.sleep(4000);
 			List<WebElement> totalSecondLevelLinks = driver.findElements(By.xpath("//a[starts-with(@href,'https')]"));
 			secondLevelEachIterationLinkCount = totalSecondLevelLinks.size();
-			System.out.println("Total links count "+secondLevelEachIterationLinkCount);
-			a=a+secondLevelEachIterationLinkCount;
-			System.out.println("Increment to total links "+a);
 			for (int i = 1; i <= secondLevelEachIterationLinkCount; i++) {
 				secondLevelLinksToSet
 						.add(driver.findElement(By.xpath("(//a[contains(@href,'https')])[position()=" + i + "]"))
